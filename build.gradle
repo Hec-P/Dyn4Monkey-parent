@@ -1,0 +1,9 @@
+allprojects {
+    group = 'org.cady.jme3.dyn4monkey'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+

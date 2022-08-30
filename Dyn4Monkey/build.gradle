@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+description = 'Dyn4J lib for jme3'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+ext {
+    dyn4jVersion = '3.1.8' //''4.2.+'
+    jmonkeyengineVersion = '3.5.2-stable'
+    junitVersion = '5.8.1'
+}
+
+dependencies {
+    implementation "org.dyn4j:dyn4j:$dyn4jVersion"
+    implementation "org.jmonkeyengine:jme3-core:$jmonkeyengineVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}

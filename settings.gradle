@@ -1,0 +1,4 @@
+rootProject.name = 'Dyn4Monkey-parent'
+include 'Dyn4Monkey'
+include 'Dyn4Monkey-samples'
+
