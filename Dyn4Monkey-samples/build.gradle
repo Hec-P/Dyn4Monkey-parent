@@ -4,6 +4,11 @@ plugins {
 
 description = 'Samples for Dyn4Monkey lib'
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     implementation project(":Dyn4Monkey")
 
