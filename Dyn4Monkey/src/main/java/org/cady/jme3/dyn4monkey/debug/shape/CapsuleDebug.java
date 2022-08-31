@@ -123,7 +123,7 @@ public class CapsuleDebug extends Mesh {
         // Update values
         this.width = width > 0 ? width : DEFAULT_WIDTH;
         this.height = height > 0 ? height : DEFAULT_HEIGHT;
-        this.segmentNumber = segmentNumber > DEFAULT_SEGMENT_NUMBER ? segmentNumber : DEFAULT_SEGMENT_NUMBER;
+        this.segmentNumber = Math.max(segmentNumber, DEFAULT_SEGMENT_NUMBER);
 
         // Create buffers
         this.setBuffer(Type.Position, 3,

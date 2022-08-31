@@ -106,7 +106,7 @@ public class CircleDebug extends Mesh {
     public void updateGeometry(final float radius, final int segmentNumber) {
         // Update values
         this.radius = radius > 0 ? radius : DEFAULT_RADIUS;
-        this.segmentNumber = segmentNumber > DEFAULT_SEGMENT_NUMBER ? segmentNumber : DEFAULT_SEGMENT_NUMBER;
+        this.segmentNumber = Math.max(segmentNumber, DEFAULT_SEGMENT_NUMBER);
 
         // Create buffers
         this.setBuffer(Type.Position, 3,
