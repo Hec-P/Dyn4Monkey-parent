@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 description = 'Dyn4J lib for jme3'
@@ -10,7 +10,7 @@ java {
 }
 
 dependencies {
-    implementation "org.dyn4j:dyn4j:$dyn4jVersion"
+    api "org.dyn4j:dyn4j:$dyn4jVersion"
     implementation "org.jmonkeyengine:jme3-core:$jmonkeyengineVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"

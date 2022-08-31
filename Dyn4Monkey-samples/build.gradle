@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 description = 'Samples for Dyn4Monkey lib'
@@ -11,6 +11,9 @@ java {
 
 dependencies {
     implementation project(":Dyn4Monkey")
+
+    implementation "org.jmonkeyengine:jme3-core:$jmonkeyengineVersion"
+    runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jmonkeyengineVersion
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
