@@ -69,73 +69,25 @@ public class TestDrawPhysicsShapes extends SimpleApplication {
         this.mat.setColor("Color", ColorRGBA.Blue);
         this.mat.getAdditionalRenderState().setFaceCullMode(FaceCullMode.Off);
 
-        // ########## Line 0
-        // Circle
-        this.rootNode.attachChild(buildCircle(12, 1, -3));
+        //drawLine0();
+        //drawLine1();
+        //drawLine2();
+        drawLine3();
 
-        // Box
-        final Box b = new Box(1, 1, 1);
-        final Geometry geom = new Geometry("Box", b);
-        geom.setMaterial(this.mat);
-        this.rootNode.attachChild(geom);
+    }
 
-        // Cylinder
-        // final Cylinder cylinderShape = new Cylinder(2, 20, 2, 1);
-        final Cylinder cylinderShape = new Cylinder(4, 4, 1, 1, 4, true, false);
+    private void drawLine3() {
+        // Half ellipse
+        this.rootNode.attachChild(buildHalfEllipse(2, 1, 17, 180 / 15));
 
-        final Geometry cylinderGeom = new Geometry("cylinder", cylinderShape);
-        cylinderGeom.setLocalTranslation(4, 0, 0);
-        cylinderGeom.setMaterial(this.mat);
-        this.rootNode.attachChild(cylinderGeom);
+        // Cross
+        this.rootNode.attachChild(buildCross(0.5f, 12));
 
-        // Polygon (mesh mode = lineLoop)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.LineLoop, 7));
+        // Cross geom
+        this.rootNode.attachChild(buildGeom(0.5f, 10));
+    }
 
-        // Polygon (mesh mode = lines)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.Lines, 9));
-
-        // Polygon (mesh mode = Points)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.Points, 11));
-
-        // Polygon (mesh mode = Points)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.LineStrip, 13));
-
-        // Polygon (mesh mode = Points)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.Triangles, 15));
-
-        // Polygon (mesh mode = Points)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.TriangleFan, 17));
-
-        // Polygon (mesh mode = Points)
-        this.rootNode.attachChild(buildPolygonMesh(Mode.TriangleStrip, 19));
-
-        // ########## Line -1
-        // Capsules
-        this.rootNode.attachChild(buildCapsule(1, 3, 3, 360 / 15));
-        this.rootNode.attachChild(buildCapsule(.5f, 2, -2, 5));
-
-        // Triangle (mesh mode = lineLoop)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.LineLoop, 7));
-
-        // Triangle (mesh mode = lines)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.Lines, 9));
-
-        // Triangle (mesh mode = Points)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.Points, 11));
-
-        // Triangle (mesh mode = Points)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.LineStrip, 13));
-
-        // Triangle (mesh mode = Points)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.Triangles, 15));
-
-        // Triangle (mesh mode = Points)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.TriangleFan, 17));
-
-        // Triangle (mesh mode = Points)
-        this.rootNode.attachChild(buildTriangleMesh(Mode.TriangleStrip, 19));
-
-        // ########## Line 1
+    private void drawLine2() {
         // Slice
         this.rootNode.attachChild(buildSlice(12, 1, FastMath.QUARTER_PI, -3));
 
@@ -157,17 +109,74 @@ public class TestDrawPhysicsShapes extends SimpleApplication {
 
         // Half ellipse
         this.rootNode.attachChild(buildHalfEllipseMesh(2, 1, 17, Mode.LineLoop));
+    }
 
-        // ########## Line 2
-        // Half ellipse
-        this.rootNode.attachChild(buildHalfEllipse(2, 1, 17, 180 / 15));
+    private void drawLine0() {
+        // Capsules
+        this.rootNode.attachChild(buildCapsule(1, 3, 3, 360 / 15));
+        this.rootNode.attachChild(buildCapsule(.5f, 2, -2, 5));
 
-        // Cross
-        this.rootNode.attachChild(buildCross(0.5f, 12));
+        // Triangle (mesh mode = lineLoop)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.LineLoop, 7));
 
-        // Cross geom
-        this.rootNode.attachChild(buildGeom(0.5f, 10));
+        // Triangle (mesh mode = lines)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.Lines, 9));
 
+        // Triangle (mesh mode = Points)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.Points, 11));
+
+        // Triangle (mesh mode = LineStrip)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.LineStrip, 13));
+
+        // Triangle (mesh mode = Triangles)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.Triangles, 15));
+
+        // Triangle (mesh mode = TriangleFan)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.TriangleFan, 17));
+
+        // Triangle (mesh mode = TriangleStrip)
+        this.rootNode.attachChild(buildTriangleMesh(Mode.TriangleStrip, 19));
+    }
+
+    private void drawLine1() {
+        // Circle
+        this.rootNode.attachChild(buildCircle(12, 1, -3));
+
+        // Box
+        final Box b = new Box(1, 1, 1);
+        final Geometry geom = new Geometry("Box", b);
+        geom.setMaterial(this.mat);
+        this.rootNode.attachChild(geom);
+
+        // Cylinder
+        // final Cylinder cylinderShape = new Cylinder(2, 20, 2, 1);
+        final Cylinder cylinderShape = new Cylinder(7, 7, 1, 1, 4, true, false);
+
+        final Geometry cylinderGeom = new Geometry("cylinder", cylinderShape);
+        cylinderGeom.setLocalTranslation(4, 0, 0);
+        cylinderGeom.setMaterial(this.mat);
+        this.rootNode.attachChild(cylinderGeom);
+
+        // Polygon (mesh mode = lineLoop)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.LineLoop, 7));
+
+        // Polygon (mesh mode = lines)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.Lines, 9));
+
+        // Polygon (mesh mode = Points)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.Points, 11));
+
+        // Polygon (mesh mode = LineStrip)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.LineStrip, 13));
+
+        // Polygon (mesh mode = Triangles)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.Triangles, 15));
+
+        // Polygon (mesh mode = TriangleFan)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.TriangleFan, 17));
+
+        // Polygon (mesh mode = TriangleStrip)
+        this.rootNode.attachChild(buildPolygonMesh(Mode.TriangleStrip, 19));
     }
 
     private Geometry buildGeom(final float segmentSize, final float pos_x) {
