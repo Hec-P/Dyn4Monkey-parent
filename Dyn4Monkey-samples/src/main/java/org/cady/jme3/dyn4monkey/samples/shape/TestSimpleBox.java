@@ -55,6 +55,8 @@ public class TestSimpleBox extends AbstractDyn4jTest {
         // Create floor.
         createFloor(15, 1, 0, -4);
 
+        this.staticObjects.attachChild(this.geometryBuilder.createFloor2(15 / 2, 1 / 2, 0, -4, 0));
+
         // Create box.
         final Spatial boxGeom = this.geometryBuilder.createBox(.5f, .5f, .5f, -2, 4);
         this.dynamicObjects.attachChild(boxGeom);
