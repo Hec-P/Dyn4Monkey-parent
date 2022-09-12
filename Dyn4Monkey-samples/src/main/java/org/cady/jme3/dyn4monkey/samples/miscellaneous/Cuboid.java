@@ -1,5 +1,6 @@
 package org.cady.jme3.dyn4monkey.samples.miscellaneous;
 
+import com.jme3.math.Vector2f;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.scene.shape.Box;
 
@@ -11,7 +12,9 @@ public class Cuboid extends Box {
         super(x, y, z);
     }
 
-    public void scaleTextureCoordinates() {
+
+    @Override
+    public void scaleTextureCoordinates(Vector2f scaleFactor) {
         VertexBuffer tc = getBuffer(VertexBuffer.Type.TexCoord);
         if (tc == null) {
             throw new IllegalStateException("The mesh has no texture coordinates");
@@ -27,19 +30,19 @@ public class Cuboid extends Box {
 
         FloatBuffer fb = (FloatBuffer) tc.getData();
         fb.clear();
-        scaleFace(fb, this.xExtent, this.yExtent); // back
-        scaleFace(fb, this.zExtent, this.yExtent); // right
-        scaleFace(fb, this.xExtent, this.yExtent); // front
-        scaleFace(fb, this.zExtent, this.yExtent); // left
-        scaleFace(fb, this.zExtent, this.xExtent); // top
-        scaleFace(fb, this.zExtent, this.xExtent); // bottom
+        scaleFace(fb, this.xExtent, this.yExtent, scaleFactor); // back
+        scaleFace(fb, this.zExtent, this.yExtent, scaleFactor); // right
+        scaleFace(fb, this.xExtent, this.yExtent, scaleFactor); // front
+        scaleFace(fb, this.zExtent, this.yExtent, scaleFactor); // left
+        scaleFace(fb, this.zExtent, this.xExtent, scaleFactor); // top
+        scaleFace(fb, this.zExtent, this.xExtent, scaleFactor); // bottom
         fb.clear();
         tc.updateData(fb);
     }
 
-    private static void scaleFace(FloatBuffer fb, float u, float v) {
-        u *= 2;
-        v *= 2;
+    private static void scaleFace(FloatBuffer fb, float u, float v, Vector2f scaleFactor) {
+        u *= 2 * scaleFactor.getX();
+        v *= 2 * scaleFactor.getY();
         for (int i = 0; i < 4; i++) {
             float x = fb.get();
             float y = fb.get();

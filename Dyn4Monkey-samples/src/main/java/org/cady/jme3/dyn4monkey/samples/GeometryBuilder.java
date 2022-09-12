@@ -69,12 +69,10 @@ public class GeometryBuilder {
             final float rotation) {
         final Cuboid floor = new Cuboid(width, height, 1f);
 
-        //final Texture floorTexture = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
-        final Texture floorTexture = this.assetManager.loadTexture("Textures/box/box-color-2_512x512.jpg");
-        // TODO La textura se ve mal, tengo que arreglarla
+        final Texture floorTexture = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
+        //final Texture floorTexture = this.assetManager.loadTexture("Textures/box/box-color-2_512x512.jpg");
         floorTexture.setWrap(Texture.WrapMode.Repeat);
-        //floor.scaleTextureCoordinates(new Vector2f(2, 2));
-        floor.scaleTextureCoordinates();
+        floor.scaleTextureCoordinates(new Vector2f(1, 1));
 
         final Material floorMat = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         floorMat.setTexture("ColorMap", floorTexture);
@@ -88,48 +86,6 @@ public class GeometryBuilder {
         }
 
         return floorGeom;
-    }
-
-    public Spatial createFloor2(final float width, final float height, final float posX, final float posY,
-            final float rotation) {
-
-        final Node floorNode = new Node("Floor node");
-        floorNode.attachChild(createFloor(.5f, .5f, posX, posY+3.5f));
-
-
-        final Texture tex1 = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
-        final Material mat1 = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat1.setTexture("ColorMap", tex1);
-        final Quad q1 = new Quad(1, 1);
-        final Geometry g1 = new Geometry("Floor Front", q1);
-        g1.move(new Vector3f(-posX, posY + 4, 1));
-        g1.setMaterial(mat1);
-        floorNode.attachChild(g1);
-
-        final Texture tex2 = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
-        tex2.setWrap(Texture.WrapMode.Repeat);
-        final Material mat2 = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat2.setTexture("ColorMap", tex2);
-        final Quad q2 = new Quad(width*2, 1);
-        q2.scaleTextureCoordinates(new Vector2f(width*2, 1));
-        final Geometry g2 = new Geometry("Floor Front", q2);
-        g2.move(new Vector3f(posX-width, posY + 5, 1));
-        g2.setMaterial(mat2);
-        floorNode.attachChild(g2);
-
-        final Texture tex3 = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
-        tex3.setWrap(Texture.WrapMode.Repeat);
-        final Material mat3 = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat3.setTexture("ColorMap", tex3);
-        final Quad q3 = new Quad(width*2, 1);
-        q3.scaleTextureCoordinates(new Vector2f(width*2, 1));
-        final Geometry g3 = new Geometry("Floor Front", q3);
-        g3.move(new Vector3f(posX+width, posY + 5, -1));
-        g3.rotate(0, FastMath.PI, 0);
-        g3.setMaterial(mat3);
-        floorNode.attachChild(g3);
-
-        return floorNode;
     }
 
     public Spatial createBox(final float width, final float height, final float depth, final float posX,
