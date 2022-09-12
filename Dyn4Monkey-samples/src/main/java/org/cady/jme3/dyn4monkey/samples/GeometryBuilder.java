@@ -44,6 +44,7 @@ import com.jme3.scene.shape.*;
 import com.jme3.texture.Texture;
 import org.cady.jme3.dyn4monkey.Dyn4jAppState;
 import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
+import org.cady.jme3.dyn4monkey.samples.miscellaneous.Cuboid;
 import org.dyn4j.dynamics.Body;
 
 /**
@@ -66,12 +67,14 @@ public class GeometryBuilder {
 
     public Spatial createFloor(final float width, final float height, final float posX, final float posY,
             final float rotation) {
-        final Box floor = new Box(width, height, 1f);
+        final Cuboid floor = new Cuboid(width, height, 1f);
 
-        final Texture floorTexture = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
+        //final Texture floorTexture = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
+        final Texture floorTexture = this.assetManager.loadTexture("Textures/box/box-color-2_512x512.jpg");
         // TODO La textura se ve mal, tengo que arreglarla
         floorTexture.setWrap(Texture.WrapMode.Repeat);
-        // floor.scaleTextureCoordinates(new Vector2f(width, height));
+        //floor.scaleTextureCoordinates(new Vector2f(2, 2));
+        floor.scaleTextureCoordinates();
 
         final Material floorMat = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         floorMat.setTexture("ColorMap", floorTexture);
