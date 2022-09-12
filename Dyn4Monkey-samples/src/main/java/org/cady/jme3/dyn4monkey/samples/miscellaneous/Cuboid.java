@@ -30,25 +30,23 @@ public class Cuboid extends Box {
 
         FloatBuffer fb = (FloatBuffer) tc.getData();
         fb.clear();
-        scaleFace(fb, this.xExtent, this.yExtent, scaleFactor); // back
-        scaleFace(fb, this.zExtent, this.yExtent, scaleFactor); // right
-        scaleFace(fb, this.xExtent, this.yExtent, scaleFactor); // front
-        scaleFace(fb, this.zExtent, this.yExtent, scaleFactor); // left
-        scaleFace(fb, this.zExtent, this.xExtent, scaleFactor); // top
-        scaleFace(fb, this.zExtent, this.xExtent, scaleFactor); // bottom
+        scaleFaceTextureCoordinates(fb, this.xExtent, this.yExtent, scaleFactor); // back
+        scaleFaceTextureCoordinates(fb, this.zExtent, this.yExtent, scaleFactor); // right
+        scaleFaceTextureCoordinates(fb, this.xExtent, this.yExtent, scaleFactor); // front
+        scaleFaceTextureCoordinates(fb, this.zExtent, this.yExtent, scaleFactor); // left
+        scaleFaceTextureCoordinates(fb, this.zExtent, this.xExtent, scaleFactor); // top
+        scaleFaceTextureCoordinates(fb, this.zExtent, this.xExtent, scaleFactor); // bottom
         fb.clear();
         tc.updateData(fb);
     }
 
-    private static void scaleFace(FloatBuffer fb, float u, float v, Vector2f scaleFactor) {
-        u *= 2 * scaleFactor.getX();
-        v *= 2 * scaleFactor.getY();
+    private static void scaleFaceTextureCoordinates(FloatBuffer fb, float u, float v, Vector2f scaleFactor) {
         for (int i = 0; i < 4; i++) {
             float x = fb.get();
             float y = fb.get();
             fb.position(fb.position() - 2);
-            x *= u;
-            y *= v;
+            x *= u * 2 * scaleFactor.getX();
+            y *= v * 2 * scaleFactor.getY();
             fb.put(x).put(y);
         }
     }
