@@ -15,7 +15,7 @@ public class Dyn4jWheelJointDebugControl extends Dyn4jJointDebugControl {
         final Vector3f p1 = Converter.toVector3f(joint.getAnchor1());
         final Vector3f p2 = Converter.toVector3f(joint.getAnchor2());
 
-        this.lineGeom = createLine(joint.getId().toString(), p1, p2, 2);
+        this.lineGeom = createLine(String.valueOf(joint.hashCode()), p1, p2, 2);
         this.anchorGeom1 = createSquare("SquareGeom1", p1);
         this.anchorGeom2 = createCircle("CircleGeom2", p2);
     }

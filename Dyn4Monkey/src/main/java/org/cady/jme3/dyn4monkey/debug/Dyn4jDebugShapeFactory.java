@@ -79,7 +79,7 @@ public class Dyn4jDebugShapeFactory {
 
     public Node getDebugShape(final Convex shape) {
 
-        final Node node = new Node(shape.getId().toString());
+        final Node node = new Node(String.valueOf(shape.hashCode()));
         node.attachChild(createOriginAxes(shape.getCenter()));
 
         if (shape instanceof Wound) {
@@ -88,7 +88,7 @@ public class Dyn4jDebugShapeFactory {
             final Vector3f[] vertices = Converter.toVector3f(wound.getVertices());
             final WoundDebug woundDebug = new WoundDebug(vertices);
 
-            node.attachChild(new Geometry(shape.getId().toString(), woundDebug));
+            node.attachChild(new Geometry(String.valueOf(shape.hashCode()), woundDebug));
 
         } else if (shape instanceof Circle) {
             final Circle circle = (Circle) shape;
@@ -96,7 +96,7 @@ public class Dyn4jDebugShapeFactory {
             final float radius = Converter.toFloat(circle.getRadius());
             final CircleDebug circleDebug = new CircleDebug(radius, CIRCLE_SEGMENT_NUMBER);
 
-            node.attachChild(new Geometry(shape.getId().toString(), circleDebug));
+            node.attachChild(new Geometry(String.valueOf(shape.hashCode()), circleDebug));
 
         } else if (shape instanceof Capsule) {
             final Capsule capsule = (Capsule) shape;
@@ -105,7 +105,7 @@ public class Dyn4jDebugShapeFactory {
             final float height = Converter.toFloat(capsule.getCapRadius());
 
             final CapsuleDebug capsuleDebug = new CapsuleDebug(width, height, CIRCLE_SEGMENT_NUMBER);
-            final Geometry capsuleGeom = new Geometry(shape.getId().toString(), capsuleDebug);
+            final Geometry capsuleGeom = new Geometry(String.valueOf(shape.hashCode()), capsuleDebug);
             node.attachChild(capsuleGeom);
 
         } else if (shape instanceof Ellipse) {
@@ -116,7 +116,7 @@ public class Dyn4jDebugShapeFactory {
 
             final CircleDebug ellipseDebug = new CircleDebug(CIRCLE_SEGMENT_NUMBER, 1);
 
-            final Geometry ellipseGeom = new Geometry(shape.getId().toString(), ellipseDebug);
+            final Geometry ellipseGeom = new Geometry(String.valueOf(shape.hashCode()), ellipseDebug);
             ellipseGeom.scale(scaleX, scaleY, 1);
             node.attachChild(ellipseGeom);
 
@@ -130,7 +130,7 @@ public class Dyn4jDebugShapeFactory {
             final float height = Converter.toFloat(halfEllipse.getHeight());
             final HalfEllipseDebug halfEllipseDebug = new HalfEllipseDebug(width, height, CIRCLE_SEGMENT_NUMBER / 2);
 
-            final Geometry halfEllipseGeom = new Geometry(shape.getId().toString(), halfEllipseDebug);
+            final Geometry halfEllipseGeom = new Geometry(String.valueOf(shape.hashCode()), halfEllipseDebug);
             node.attachChild(halfEllipseGeom);
 
         } else if (shape instanceof Slice) {
@@ -142,7 +142,7 @@ public class Dyn4jDebugShapeFactory {
 
             final SliceDebug sliceDebug = new SliceDebug(radius, angle, segmentNumber);
 
-            final Geometry sliceGeom = new Geometry(shape.getId().toString(), sliceDebug);
+            final Geometry sliceGeom = new Geometry(String.valueOf(shape.hashCode()), sliceDebug);
             node.attachChild(sliceGeom);
 
         } else {
@@ -163,8 +163,8 @@ public class Dyn4jDebugShapeFactory {
             jointControl = new Dyn4jDistanceJointDebugControl(dyn4jDebugAppState, joint);
         } else if (joint instanceof RevoluteJoint) {
             jointControl = new Dyn4jRevoluteJointDebugControl(dyn4jDebugAppState, joint);
-        } else if (joint instanceof MouseJoint) {
-            jointControl = new Dyn4jMouseJointDebugControl(dyn4jDebugAppState, joint);
+        } else if (joint instanceof PinJoint) {
+            jointControl = new Dyn4jPinJointDebugControl(dyn4jDebugAppState, joint);
         } else if (joint instanceof WeldJoint) {
             jointControl = new Dyn4jWeldJointDebugControl(dyn4jDebugAppState, joint);
         } else if (joint instanceof PrismaticJoint) {

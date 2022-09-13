@@ -33,10 +33,9 @@ package org.cady.jme3.dyn4monkey.samples;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
-import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Convex;
-import org.dyn4j.geometry.Mass;
-import org.dyn4j.geometry.Rectangle;
+import org.dyn4j.geometry.*;
+
+import java.util.UUID;
 
 /**
  *
@@ -54,7 +53,7 @@ public class PhysicObjectBuilder {
 
         final Body floorPhysic = new Body();
         floorPhysic.addFixture(new BodyFixture(floorShape));
-        floorPhysic.setMass(Mass.Type.INFINITE);
+        floorPhysic.setMass(MassType.INFINITE);
         floorPhysic.translate(posX, posY);
 
         if (rotation != 0) {
@@ -67,7 +66,7 @@ public class PhysicObjectBuilder {
     public Body createBody(final Convex shape, final double posX, final double posY) {
         final Body bodyPhysic = new Body();
         bodyPhysic.addFixture(shape);
-        bodyPhysic.setMass();
+        bodyPhysic.setMass(MassType.NORMAL);
         bodyPhysic.translate(posX, posY);
 
         return bodyPhysic;
@@ -76,7 +75,7 @@ public class PhysicObjectBuilder {
     public Body createBody(final BodyFixture fixture, final double posX, final double posY) {
         final Body bodyPhysic = new Body();
         bodyPhysic.addFixture(fixture);
-        bodyPhysic.setMass();
+        bodyPhysic.setMass(MassType.NORMAL);
         bodyPhysic.translate(posX, posY);
 
         return bodyPhysic;

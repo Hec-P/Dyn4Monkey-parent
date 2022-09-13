@@ -36,8 +36,6 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.renderer.RenderManager;
 import org.cady.jme3.dyn4monkey.debug.Dyn4jDebugAppState;
-import org.dyn4j.collision.Bounds;
-import org.dyn4j.dynamics.Capacity;
 import org.dyn4j.dynamics.Settings;
 
 import java.util.concurrent.Callable;
@@ -59,8 +57,8 @@ public class Dyn4jAppState extends AbstractAppState {
 
     protected AppStateManager stateManager = null;
 
-    protected Capacity initialCapacity = null;
-    protected Bounds bounds = null;
+    protected int initialBodyCapacity = 0;
+    protected int initialJointCapacity = 0;
 
     protected PhysicsSpace physicsSpace = null;
     protected float tpf = 0;
@@ -87,37 +85,21 @@ public class Dyn4jAppState extends AbstractAppState {
     };
 
     public Dyn4jAppState() {
-        this(null, null, ThreadingType.PARALLEL);
+        this(0, 0, ThreadingType.PARALLEL);
     }
 
-    public Dyn4jAppState(final Bounds bounds) {
-        this(null, bounds, ThreadingType.PARALLEL);
-    }
-
-    public Dyn4jAppState(final Capacity initialCapacity) {
-        this(initialCapacity, null, ThreadingType.PARALLEL);
-    }
-
-    public Dyn4jAppState(final Capacity initialCapacity, final Bounds bounds) {
-        this(initialCapacity, bounds, ThreadingType.PARALLEL);
+    public Dyn4jAppState(final int initialBodyCapacity, final int initialJointCapacity) {
+        this(initialBodyCapacity, initialJointCapacity, ThreadingType.PARALLEL);
     }
 
     public Dyn4jAppState(final ThreadingType threadingType) {
-        this(null, null, threadingType);
+        this(0, 0, threadingType);
     }
 
-    public Dyn4jAppState(final Bounds bounds, final ThreadingType threadingType) {
-        this(null, bounds, threadingType);
-    }
-
-    public Dyn4jAppState(final Capacity initialCapacity, final ThreadingType threadingType) {
-        this(initialCapacity, null, threadingType);
-    }
-
-    public Dyn4jAppState(final Capacity initialCapacity, final Bounds bounds, final ThreadingType threadingType) {
+    public Dyn4jAppState(final int initialBodyCapacity, final int initialJointCapacity, final ThreadingType threadingType) {
         this.threadingType = threadingType;
-        this.initialCapacity = initialCapacity;
-        this.bounds = bounds;
+        this.initialBodyCapacity = initialBodyCapacity;
+        this.initialJointCapacity = initialJointCapacity;
     }
 
     @Override
@@ -139,7 +121,7 @@ public class Dyn4jAppState extends AbstractAppState {
         if (this.threadingType == ThreadingType.PARALLEL) {
             startPhysicsOnExecutor();
         } else {
-            this.physicsSpace = new PhysicsSpace(this.initialCapacity, this.bounds);
+            this.physicsSpace = new PhysicsSpace(this.initialBodyCapacity, this.initialJointCapacity);
         }
 
         this.initialized = true;
@@ -154,8 +136,8 @@ public class Dyn4jAppState extends AbstractAppState {
         final Callable<Boolean> call = new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                Dyn4jAppState.this.physicsSpace = new PhysicsSpace(Dyn4jAppState.this.initialCapacity,
-                        Dyn4jAppState.this.bounds);
+                Dyn4jAppState.this.physicsSpace = new PhysicsSpace(Dyn4jAppState.this.initialBodyCapacity,
+                        Dyn4jAppState.this.initialJointCapacity);
                 return true;
             }
         };

@@ -37,7 +37,7 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
     public Dyn4jJointDebugControl(final Dyn4jDebugAppState dyn4jDebugAppState, final Joint joint) {
         this.dyn4jDebugAppState = dyn4jDebugAppState;
         this.joint = joint;
-        this.geometry = new Node(joint.getId().toString());
+        this.geometry = new Node(String.valueOf(joint.hashCode()));
     }
 
     @Override
@@ -62,17 +62,17 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
             if (mesh instanceof Line) {
                 ((Line) mesh).updatePoints(p1, p2);
             }
-            this.lineGeom.setMaterial(getLineGeomMaterial(this.joint.isActive()));
+            this.lineGeom.setMaterial(getLineGeomMaterial(this.joint.isEnabled()));
         }
 
         if (this.anchorGeom1 != null) {
             this.anchorGeom1.setLocalTranslation(p1);
-            this.anchorGeom1.setMaterial(getAnchorGeom1Material(this.joint.isActive()));
+            this.anchorGeom1.setMaterial(getAnchorGeom1Material(this.joint.isEnabled()));
         }
 
         if (this.anchorGeom2 != null) {
             this.anchorGeom2.setLocalTranslation(p2);
-            this.anchorGeom2.setMaterial(getAnchorGeom2Material(this.joint.isActive()));
+            this.anchorGeom2.setMaterial(getAnchorGeom2Material(this.joint.isEnabled()));
         }
     }
 
@@ -89,7 +89,7 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
         vertices[3] = new Vector3f(size, -size, 0);
 
         final WoundDebug square = new WoundDebug(vertices);
-        final Geometry squareGeom = new Geometry(name + this.joint.getId().toString(), square);
+        final Geometry squareGeom = new Geometry(name + this.joint.hashCode(), square);
         center.x -= SQUARE_SEGMENT_SIZE / 2;
         center.y -= SQUARE_SEGMENT_SIZE / 2;
         squareGeom.setLocalTranslation(center);
@@ -101,7 +101,7 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
 
     protected Geometry createCircle(final String name, final Vector3f center) {
         final CircleDebug circleDebug = new CircleDebug(CIRCLE_RADIUS, CIRCLE_SEGMENT_NUMBER);
-        final Geometry circleGeom = new Geometry(name + this.joint.getId().toString(), circleDebug);
+        final Geometry circleGeom = new Geometry(name + this.joint.hashCode(), circleDebug);
         circleGeom.setLocalTranslation(center);
 
         this.geometry.attachChild(circleGeom);
@@ -111,7 +111,7 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
 
     protected Geometry createCross(final String name, final Vector3f center) {
         final CrossDebug crossDebug = new CrossDebug(CROSS_SEGMENT_SIZE);
-        final Geometry crossGeom = new Geometry(name + this.joint.getId().toString(), crossDebug);
+        final Geometry crossGeom = new Geometry(name + this.joint.hashCode(), crossDebug);
         crossGeom.setLocalTranslation(center);
 
         this.geometry.attachChild(crossGeom);
@@ -121,7 +121,7 @@ public abstract class Dyn4jJointDebugControl extends AbstractControl {
 
     protected Geometry createPulleyCross(final String name, final Vector3f center) {
         final CrossDebug crossDebug = new CrossDebug(CROSS_SEGMENT_SIZE, Mode.LineLoop);
-        final Geometry crossGeom = new Geometry(name + this.joint.getId().toString(), crossDebug);
+        final Geometry crossGeom = new Geometry(name + this.joint.hashCode(), crossDebug);
         crossGeom.setLocalTranslation(center);
 
         this.geometry.attachChild(crossGeom);

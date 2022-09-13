@@ -36,7 +36,10 @@ import com.jme3.scene.Spatial;
 import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
+
+import java.util.UUID;
 
 /**
  * 
@@ -65,7 +68,7 @@ public class TestSimpleBox extends AbstractDyn4jTest {
         boxPhysic.addFixture(boxShape);
 
         // Important!: Always call setMass in order to compute object's mass.
-        boxPhysic.setMass();
+        boxPhysic.setMass(MassType.NORMAL);
 
         boxPhysic.translate(-2.0, 4.0);
         boxPhysic.rotate(FastMath.QUARTER_PI);

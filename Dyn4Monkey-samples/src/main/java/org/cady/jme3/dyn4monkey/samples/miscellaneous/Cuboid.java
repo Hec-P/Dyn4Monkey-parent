@@ -12,30 +12,20 @@ public class Cuboid extends Box {
         super(x, y, z);
     }
 
-
     @Override
     public void scaleTextureCoordinates(Vector2f scaleFactor) {
         VertexBuffer tc = getBuffer(VertexBuffer.Type.TexCoord);
-        if (tc == null) {
-            throw new IllegalStateException("The mesh has no texture coordinates");
-        }
-
-        if (tc.getFormat() != VertexBuffer.Format.Float) {
-            throw new UnsupportedOperationException("Only float texture coord format is supported");
-        }
-
-        if (tc.getNumComponents() != 2) {
-            throw new UnsupportedOperationException("Only 2D texture coords are supported");
-        }
 
         FloatBuffer fb = (FloatBuffer) tc.getData();
         fb.clear();
+
         scaleFaceTextureCoordinates(fb, this.xExtent, this.yExtent, scaleFactor); // back
         scaleFaceTextureCoordinates(fb, this.zExtent, this.yExtent, scaleFactor); // right
         scaleFaceTextureCoordinates(fb, this.xExtent, this.yExtent, scaleFactor); // front
         scaleFaceTextureCoordinates(fb, this.zExtent, this.yExtent, scaleFactor); // left
         scaleFaceTextureCoordinates(fb, this.zExtent, this.xExtent, scaleFactor); // top
         scaleFaceTextureCoordinates(fb, this.zExtent, this.xExtent, scaleFactor); // bottom
+
         fb.clear();
         tc.updateData(fb);
     }

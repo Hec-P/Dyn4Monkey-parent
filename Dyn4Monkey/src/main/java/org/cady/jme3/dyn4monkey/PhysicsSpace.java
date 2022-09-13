@@ -33,13 +33,11 @@ package org.cady.jme3.dyn4monkey;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import org.dyn4j.collision.Bounds;
 import org.dyn4j.dynamics.Body;
-import org.dyn4j.dynamics.Capacity;
 import org.dyn4j.dynamics.Settings;
-import org.dyn4j.dynamics.World;
 import org.dyn4j.dynamics.joint.Joint;
 import org.dyn4j.geometry.Vector2;
+import org.dyn4j.world.World;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -60,12 +58,8 @@ public class PhysicsSpace {
     // jBox2D
     protected float speed = DEFAULT_SPEED;
 
-    public PhysicsSpace(final Capacity initialCapacity, final Bounds bounds) {
-        if (initialCapacity != null) {
-            this.physicsWorld = new World(initialCapacity, bounds);
-        } else {
-            this.physicsWorld = new World(bounds);
-        }
+    public PhysicsSpace(int initialBodyCapacity, int initialJointCapacity) {
+        this.physicsWorld = new World(initialBodyCapacity, initialJointCapacity);
     }
 
     public void addBody(final Body body) {
@@ -110,7 +104,7 @@ public class PhysicsSpace {
 
     public void setSpeed(final float speed) {
         this.speed = speed;
-        this.physicsWorld.getSettings().setSleepTime(Settings.DEFAULT_STEP_FREQUENCY * speed);
+        this.physicsWorld.getSettings().setStepFrequency(Settings.DEFAULT_STEP_FREQUENCY * speed);
     }
 
     public float getSpeed() {

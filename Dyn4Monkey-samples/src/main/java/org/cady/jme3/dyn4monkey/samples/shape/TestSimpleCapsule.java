@@ -37,6 +37,7 @@ import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.geometry.Capsule;
+import org.dyn4j.geometry.MassType;
 
 /**
  * 
@@ -63,7 +64,7 @@ public class TestSimpleCapsule extends AbstractDyn4jTest {
         capsulePhysic.addFixture(capsuleShape);
 
         // Important!: Always call setMass in order to compute object's mass.
-        capsulePhysic.setMass();
+        capsulePhysic.setMass(MassType.NORMAL);
 
         capsulePhysic.translate(-2.0, 4.0);
         capsulePhysic.rotate(FastMath.QUARTER_PI / 2);

@@ -8,10 +8,7 @@ import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.DistanceJoint;
-import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Geometry;
-import org.dyn4j.geometry.Mass;
-import org.dyn4j.geometry.Vector2;
+import org.dyn4j.geometry.*;
 
 public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
@@ -41,7 +38,7 @@ public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
             final Body spherePhysic = new Body();
             spherePhysic.addFixture(fixture);
-            spherePhysic.setMass(Mass.Type.FIXED_ANGULAR_VELOCITY);
+            spherePhysic.setMass(MassType.FIXED_ANGULAR_VELOCITY);
             spherePhysic.setLinearDamping(0.1);
             spherePhysic.translate(posX, posY);
             e = spherePhysic;

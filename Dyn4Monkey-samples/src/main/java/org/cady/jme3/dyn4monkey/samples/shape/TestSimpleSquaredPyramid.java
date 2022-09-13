@@ -36,6 +36,7 @@ import com.jme3.scene.Spatial;
 import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Triangle;
 import org.dyn4j.geometry.Vector2;
 
@@ -63,7 +64,7 @@ public class TestSimpleSquaredPyramid extends AbstractDyn4jTest {
                 -0.5));
         final Body trianglePhysic = new Body();
         trianglePhysic.addFixture(triangleShape);
-        trianglePhysic.setMass();
+        trianglePhysic.setMass(MassType.NORMAL);
 
         trianglePhysic.translate(-1.0, 2.0);
         trianglePhysic.rotate(FastMath.QUARTER_PI);

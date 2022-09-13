@@ -6,6 +6,7 @@ import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.DistanceJoint;
 import org.dyn4j.geometry.Circle;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Vector2;
 
@@ -30,17 +31,17 @@ public class TestDistanceJointSpringDamper extends AbstractDyn4jTest {
 
         final Body body = new Body();
         body.addFixture(fr);
-        body.setMass();
+        body.setMass(MassType.NORMAL);
         body.translate(0, 4.25);
 
         final Body wheel1 = new Body();
         wheel1.addFixture(fc);
-        wheel1.setMass();
+        wheel1.setMass(MassType.NORMAL);
         wheel1.translate(-1.0, 3.6);
 
         final Body wheel2 = new Body();
         wheel2.addFixture(fc);
-        wheel2.setMass();
+        wheel2.setMass(MassType.NORMAL);
         wheel2.translate(1.0, 3.6);
 
         this.dyn4jAppState.getPhysicsSpace().addBody(body);

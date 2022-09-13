@@ -52,8 +52,8 @@ public class Dyn4jBodyDebugControl extends Dyn4jBodyControl {
 
     protected Dyn4jDebugAppState dyn4jDebugAppState = null;
 
-    protected Map<UUID, Convex> shapes = new HashMap<UUID, Convex>();
-    protected Map<UUID, Node> geometries = new HashMap<UUID, Node>();
+    protected Map<Integer, Convex> shapes = new HashMap<>();
+    protected Map<Integer, Node> geometries = new HashMap<>();
     protected Node spatialAsNode = null;
 
     public Dyn4jBodyDebugControl(final Dyn4jDebugAppState dyn4jDebugAppState, final Body body) {
@@ -85,15 +85,15 @@ public class Dyn4jBodyDebugControl extends Dyn4jBodyControl {
 
     @Override
     protected void controlUpdate(final float tpf) {
-        final List<UUID> currentIDs = new ArrayList<UUID>();
-        final List<Node> currentGeoms = new ArrayList<Node>();
+        final List<Integer> currentIDs = new ArrayList<>();
+        final List<Node> currentGeoms = new ArrayList<>();
 
         for (final BodyFixture bodyFixture : this.body.getFixtures()) {
             final Convex shape = bodyFixture.getShape();
 
-            currentIDs.add(shape.getId());
+            currentIDs.add(shape.hashCode());
 
-            if (!this.shapes.containsKey(shape.getId())) {
+            if (!this.shapes.containsKey(shape.hashCode())) {
 
                 // New fixture: create spatial for the shape, add it to geometry list and attach to the root spatial.
                 final Node node = processShape(shape);
@@ -109,9 +109,9 @@ public class Dyn4jBodyDebugControl extends Dyn4jBodyControl {
 
         // Set Material according to body state
         final Material material;
-        if (this.body.isAsleep()) {
+        if (this.body.isAtRest()) {
             material = this.dyn4jDebugAppState.getDebugMaterial(PhysicDebugColor.BLUE);
-        } else if (!this.body.isActive()) {
+        } else if (!this.body.isEnabled()) {
             material = this.dyn4jDebugAppState.getDebugMaterial(PhysicDebugColor.GRAY);
         } else {
             material = this.dyn4jDebugAppState.getDebugMaterial(PhysicDebugColor.MAGENTA);
@@ -137,8 +137,8 @@ public class Dyn4jBodyDebugControl extends Dyn4jBodyControl {
     private Node processShape(final Convex shape) {
         final Node node = this.dyn4jDebugAppState.getDebugShape(shape);
 
-        this.shapes.put(shape.getId(), shape);
-        this.geometries.put(shape.getId(), node);
+        this.shapes.put(shape.hashCode(), shape);
+        this.geometries.put(shape.hashCode(), node);
 
         return node;
     }

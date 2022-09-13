@@ -50,9 +50,8 @@ import org.cady.jme3.dyn4monkey.Converter;
 import org.cady.jme3.dyn4monkey.Dyn4jAppState;
 import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.dyn4j.Epsilon;
-import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.dynamics.Body;
-import org.dyn4j.dynamics.joint.MouseJoint;
+import org.dyn4j.dynamics.joint.PinJoint;
 
 /**
  * 
@@ -79,14 +78,14 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
     protected Node dynamicObjects = new Node("Dynamic Objects");
 
     protected Vector3f contactPoint = null;
-    private MouseJoint mouseJoint = null;
+    private PinJoint<Body> mousePinJoint = null;
 
     @Override
     public void simpleInitApp() {
         // Initialize Ddn4jAppState.
         // Important! You can define the world's bounds, so objects that go out of world's bound are deactivated in
         // order to improve calculations performance.
-        this.dyn4jAppState = new Dyn4jAppState(new AxisAlignedBounds(30, 30));
+        this.dyn4jAppState = new Dyn4jAppState();
         this.dyn4jAppState.setDebugEnabled(this.debugEnabled);
         this.dyn4jAppState.setEnabled(this.physicEnabled);
         this.stateManager.attach(this.dyn4jAppState);
@@ -116,7 +115,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
 
     @Override
     public void simpleUpdate(final float tpf) {
-        if (!this.flyCamEnabled && this.mouseJoint != null) {
+        if (!this.flyCamEnabled && this.mousePinJoint != null) {
             final Vector3f pos = this.contactPoint.clone();
             final Vector3f localPos = pos.subtract(this.cam.getLocation());
             final float dist = this.cam.getDirection().dot(localPos);
@@ -125,7 +124,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
             final Vector3f cursorPos3f = this.cam.getWorldCoordinates(cursorPos2f, this.cam.getViewToProjectionZ(dist))
                     .clone();
 
-            this.mouseJoint.setTarget(Converter.toVector2(cursorPos3f));
+            this.mousePinJoint.setTarget(Converter.toVector2(cursorPos3f));
 
         }
     }
@@ -229,7 +228,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
 
                         AbstractDyn4jTest.this.contactPoint = closest.getContactPoint();
 
-                        // Create MouseJoint
+                        // Create MousePinJoint
                         final Dyn4jBodyControl control = getDyn4jBodyControl(closest.getGeometry());
                         if (control != null) {
                             final Body body = control.getBody();
@@ -238,10 +237,10 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                                 // if the mass is zero, attempt to use the inertia
                                 mass = body.getMass().getInertia();
                             }
-                            AbstractDyn4jTest.this.mouseJoint = new MouseJoint(body,
+                            AbstractDyn4jTest.this.mousePinJoint = new PinJoint<>(body,
                                     Converter.toVector2(AbstractDyn4jTest.this.contactPoint), 4, 0.7, 10000 * mass);
                             AbstractDyn4jTest.this.dyn4jAppState.getPhysicsSpace().addJoint(
-                                    AbstractDyn4jTest.this.mouseJoint);
+                                    AbstractDyn4jTest.this.mousePinJoint);
 
                         } else {
                             // No dynamic body select: Throw a warning
@@ -255,8 +254,8 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                     if (AbstractDyn4jTest.this.contactPoint != null) {
                         AbstractDyn4jTest.this.contactPoint = null;
                         AbstractDyn4jTest.this.dyn4jAppState.getPhysicsSpace().removeJoint(
-                                AbstractDyn4jTest.this.mouseJoint);
-                        AbstractDyn4jTest.this.mouseJoint = null;
+                                AbstractDyn4jTest.this.mousePinJoint);
+                        AbstractDyn4jTest.this.mousePinJoint = null;
                     }
                 }
 

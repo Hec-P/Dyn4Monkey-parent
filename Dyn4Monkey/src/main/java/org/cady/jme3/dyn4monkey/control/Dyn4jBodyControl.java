@@ -77,7 +77,7 @@ public class Dyn4jBodyControl extends AbstractControl {
     private void setPhysicRotation(final Body physicBody) {
         final Transform transform = physicBody.getTransform();
 
-        final float rotation = Converter.toFloat(transform.getRotation());
+        final float rotation = Converter.toFloat(transform.getRotationAngle());
 
         final TempVars tempVars = TempVars.get();
         final Quaternion quaternion = tempVars.quat1;

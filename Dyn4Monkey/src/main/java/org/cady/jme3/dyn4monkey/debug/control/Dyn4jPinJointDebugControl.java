@@ -7,15 +7,15 @@ import org.cady.jme3.dyn4monkey.debug.Dyn4jDebugAppState;
 import org.cady.jme3.dyn4monkey.debug.PhysicDebugColor;
 import org.dyn4j.dynamics.joint.Joint;
 
-public class Dyn4jMouseJointDebugControl extends Dyn4jJointDebugControl {
+public class Dyn4jPinJointDebugControl extends Dyn4jJointDebugControl {
 
-    public Dyn4jMouseJointDebugControl(final Dyn4jDebugAppState dyn4jDebugAppState, final Joint joint) {
+    public Dyn4jPinJointDebugControl(final Dyn4jDebugAppState dyn4jDebugAppState, final Joint joint) {
         super(dyn4jDebugAppState, joint);
 
         final Vector3f p1 = Converter.toVector3f(joint.getAnchor1());
         final Vector3f p2 = Converter.toVector3f(joint.getAnchor2());
 
-        this.lineGeom = createLine(joint.getId().toString(), p1, p2, 1);
+        this.lineGeom = createLine(String.valueOf(joint.hashCode()), p1, p2, 1);
         this.anchorGeom1 = createSquare("SquareGeom1", p1);
         this.anchorGeom2 = createSquare("SquareGeom2", p2);
     }

@@ -35,6 +35,7 @@ import com.jme3.math.FastMath;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.geometry.Geometry;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Polygon;
 
 /**
@@ -62,7 +63,7 @@ public class TestSimplePolygon extends AbstractDyn4jTest {
         polygonPhysic.addFixture(polygonShape);
 
         // Important!: Always call setMass in order to compute object's mass.
-        polygonPhysic.setMass();
+        polygonPhysic.setMass(MassType.NORMAL);
 
         polygonPhysic.translate(0.0, -4.0);
         polygonPhysic.rotate(-FastMath.PI + .4f);

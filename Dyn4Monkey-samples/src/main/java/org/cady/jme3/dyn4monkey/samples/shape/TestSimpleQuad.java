@@ -36,6 +36,7 @@ import com.jme3.scene.Spatial;
 import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Segment;
 import org.dyn4j.geometry.Vector2;
 
@@ -68,7 +69,7 @@ public class TestSimpleQuad extends AbstractDyn4jTest {
         quadPhysic.addFixture(quadShape);
 
         // Important!: Always call setMass in order to compute object's mass.
-        quadPhysic.setMass();
+        quadPhysic.setMass(MassType.NORMAL);
 
         quadPhysic.translate(-2.0, 4.0);
         quadPhysic.rotate(FastMath.QUARTER_PI);

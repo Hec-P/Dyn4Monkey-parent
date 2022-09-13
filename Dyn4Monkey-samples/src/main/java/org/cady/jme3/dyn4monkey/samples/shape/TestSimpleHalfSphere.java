@@ -37,6 +37,7 @@ import org.cady.jme3.dyn4monkey.control.Dyn4jBodyControl;
 import org.cady.jme3.dyn4monkey.samples.AbstractDyn4jTest;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.geometry.HalfEllipse;
+import org.dyn4j.geometry.MassType;
 
 /**
  * 
@@ -63,7 +64,7 @@ public class TestSimpleHalfSphere extends AbstractDyn4jTest {
         halfEllipsePhysic.addFixture(halfEllipseShape);
 
         // Important!: Always call setMass in order to compute object's mass.
-        halfEllipsePhysic.setMass();
+        halfEllipsePhysic.setMass(MassType.NORMAL);
 
         halfEllipsePhysic.translate(-2.0, 4.0);
         halfEllipsePhysic.rotateAboutCenter(FastMath.HALF_PI);

@@ -43,8 +43,8 @@ public class Dyn4jPulleyJointDebugControl extends Dyn4jJointDebugControl {
         final Vector3f p3 = Converter.toVector3f(pulleyJoint.getPulleyAnchor2());
         final Vector3f p4 = Converter.toVector3f(pulleyJoint.getAnchor2());
 
-        final Material anchorGeomMaterial = getAnchorGeom1Material(this.joint.isActive());
-        final Material lineGeomMaterial = getLineGeomMaterial(this.joint.isActive());
+        final Material anchorGeomMaterial = getAnchorGeom1Material(this.joint.isEnabled());
+        final Material lineGeomMaterial = getLineGeomMaterial(this.joint.isEnabled());
 
         this.anchorGeom1.setLocalTranslation(p1);
         this.anchorGeom1.setMaterial(anchorGeomMaterial);
